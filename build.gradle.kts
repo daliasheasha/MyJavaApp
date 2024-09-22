@@ -1,19 +1,22 @@
+
 plugins {
-    id("java")
+    id 'java'
 }
 
-group = "org.example"
-version = "1.0-SNAPSHOT"
+group = 'org.example'
+version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.9.1"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation(platform('org.junit.jupiter:junit-jupiter-bom:5.9.1'))
+    testImplementation('org.junit.jupiter:junit-jupiter:5.9.1')
 }
 
 tasks.test {
-    useJUnitPlatform()
+    useJUnitPlatform() {
+        includeEngines 'junit-jupiter'
+    }
 }
