@@ -1,5 +1,6 @@
+
 plugins {
-    id("java")
+    id("java-library")
 }
 
 group = "org.example"
@@ -10,10 +11,10 @@ repositories {
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.9.1"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation(platform("org.junit.jupiter:junit-jupiter-bom:5.9.1"))
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
 }
 
 tasks.test {
-    useJUnitPlatform()
+    // No need to useJUnitPlatform() in JUnit 5
 }
