@@ -1,2 +1,2 @@
-rootProject.name = "MyJavaApp"
 
+using System;
