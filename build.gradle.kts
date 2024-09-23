@@ -1,5 +1,6 @@
+
 plugins {
-    id("java")
+    id("java-library")
 }
 
 group = "org.example"
@@ -10,8 +11,8 @@ repositories {
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.9.1"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }
 
 tasks.test {
