@@ -1,15 +1,16 @@
+
 package org.example;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.Base64;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.XmlRootElement;
 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
-
+@XmlRootElement
 public class MyJavaApp {
     public static void main(String[] args) {
         Weather rochester = new Weather();
@@ -21,9 +22,9 @@ public class MyJavaApp {
         // Convert my Rochester object to XML
         writeXML(rochester);
 
-        // Ecode/decode my forcast
-        String encodedForcast = encode(rochester.getForecast());
-        decode(encodedForcast);
+        // Encode/decode my forecast
+        String encodedForecast = encode(rochester.getForecast());
+        decode(encodedForecast);
     }
 
     public static void writeXML(Weather weather) {
@@ -41,8 +42,7 @@ public class MyJavaApp {
     }
 
     public static String encode(String originalString) {
-        BASE64Encoder encoder = new BASE64Encoder();
-        String encodedString = encoder.encode(originalString.getBytes());
+        String encodedString = Base64.getEncoder().encodeToString(originalString.getBytes());
         System.out.println("Original String: " + originalString);
         System.out.println("Encoded String:  " + encodedString);
         System.out.println("============================================");
@@ -52,10 +52,10 @@ public class MyJavaApp {
     public static String decode(String encodedString) {
         String decodedString = "";
         try {
-            byte[] decodedBytes = new BASE64Decoder().decodeBuffer(encodedString);
+            byte[] decodedBytes = Base64.getDecoder().decode(encodedString);
             decodedString = new String(decodedBytes, Charset.forName("UTF-8"));
 
-        } catch (IOException e) {
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
         System.out.println("Encoded String:  " + encodedString);
@@ -63,4 +63,14 @@ public class MyJavaApp {
         System.out.println("============================================");
         return decodedString;
     }
+}
+
+@XmlRootElement
+class Weather {
+    private String city;
+    private String state;
+    private String country;
+    private String forecast;
+
+    // Getters and setters
 }
